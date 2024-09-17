@@ -1,0 +1,16 @@
+{
+  "extends": "@waypoint/typescript-config/tsconfig.next.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "./dist-types"
+  },
+  "include": [
+    "svgr.d.ts",
+    "**/*.js",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/.eslintrc.js",
+    "package.json"
+  ],
+  "exclude": ["apps", "libs", "dist", "dist-types"]
+}

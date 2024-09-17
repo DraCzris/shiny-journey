@@ -1,0 +1,667 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Jira API",
+    "version": "1",
+    "description": "API used by Jira plugin and its installation process"
+  },
+  "paths": {
+    "/api/jira/fields/": {
+      "get": {
+        "operationId": "get_fields",
+        "summary": "Fields",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "ids",
+            "schema": {
+              "items": { "format": "uuid", "type": "string" },
+              "title": "Ids",
+              "type": "array"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": { "$ref": "#/components/schemas/Field" },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Public API"],
+        "security": [{ "JiraJWT": [] }]
+      }
+    },
+    "/api/jira/submit-feedback/": {
+      "post": {
+        "operationId": "submit_feedback",
+        "summary": "Submit Feedback",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/FeedbackPayload" }
+              }
+            }
+          }
+        },
+        "tags": ["Public API"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/FeedbackPayload" }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JiraJWT": [] }]
+      }
+    },
+    "/api/jira/create-voucher/": {
+      "post": {
+        "operationId": "create_voucher",
+        "summary": "Create Voucher",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Voucher" }
+              }
+            }
+          }
+        },
+        "tags": ["Public API"],
+        "security": [{ "JiraJWT": [] }]
+      }
+    },
+    "/api/jira/finalize-link/": {
+      "post": {
+        "operationId": "finalize_link",
+        "summary": "Finalize Link",
+        "parameters": [],
+        "responses": { "200": { "description": "OK" } },
+        "tags": ["Public API"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/FinalizeLinkPayload" }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JiraJWT": [] }]
+      }
+    },
+    "/api/jira/installation-status/": {
+      "get": {
+        "operationId": "installation_status",
+        "summary": "Installation Status",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/InstallationStatus" }
+              }
+            }
+          }
+        },
+        "tags": ["Public API"],
+        "security": [{ "JiraJWT": [] }]
+      }
+    },
+    "/api/jira/get-tenant/": {
+      "get": {
+        "operationId": "get_tenant",
+        "summary": "Get Tenant",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Tenant" }
+              }
+            }
+          }
+        },
+        "tags": ["Public API"],
+        "security": [{ "JiraJWT": [] }]
+      }
+    },
+    "/api/jira/ensure-issue/": {
+      "post": {
+        "operationId": "ensure_issue",
+        "summary": "Ensure Issue",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/EnsureIssueResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["Public API"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/EnsureIssuePayload" }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "JiraJWT": [] }]
+      }
+    },
+    "/installation/jira/finished/": {
+      "post": {
+        "operationId": "installation_finished",
+        "summary": "Installation Finished",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/InstalledResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["Installation API"]
+      }
+    },
+    "/installation/jira/connect/": {
+      "get": {
+        "operationId": "installation_connect",
+        "summary": "Connect View",
+        "parameters": [],
+        "responses": { "200": { "description": "OK" } },
+        "tags": ["Installation API"]
+      }
+    },
+    "/internal/jira/add-account-to-voucher/": {
+      "post": {
+        "operationId": "add_account_to_voucher",
+        "summary": "Add Account To Voucher",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddAccountToVoucherResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Internal API"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddAccountToVoucherPayload"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/app/jira/": {
+      "get": {
+        "operationId": "index",
+        "summary": "Index",
+        "parameters": [],
+        "responses": { "200": { "description": "OK" } },
+        "tags": ["Serving App static files"]
+      }
+    },
+    "/app/jira/survey/": {
+      "get": {
+        "operationId": "survey",
+        "summary": "Survey",
+        "parameters": [],
+        "responses": { "200": { "description": "OK" } },
+        "tags": ["Serving App static files"]
+      }
+    },
+    "/app/jira/link/": {
+      "get": {
+        "operationId": "link",
+        "summary": "Link",
+        "parameters": [],
+        "responses": { "200": { "description": "OK" } },
+        "tags": ["Serving App static files"]
+      }
+    },
+    "/app/jira/link/finalize/": {
+      "get": {
+        "operationId": "link_finalized",
+        "summary": "Link Finalized",
+        "parameters": [],
+        "responses": { "200": { "description": "OK" } },
+        "tags": ["Serving App static files"]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "GetFieldsFilter": {
+        "properties": {
+          "ids": {
+            "items": { "format": "uuid", "type": "string" },
+            "title": "Ids",
+            "type": "array"
+          }
+        },
+        "required": ["ids"],
+        "title": "GetFieldsFilter",
+        "type": "object"
+      },
+      "Error": {
+        "properties": {
+          "type": {
+            "const": "error",
+            "default": "error",
+            "enum": ["error"],
+            "title": "Type",
+            "type": "string"
+          },
+          "message": { "title": "Message", "type": "string" },
+          "failed_at": {
+            "format": "date-time",
+            "title": "Failed At",
+            "type": "string"
+          },
+          "content": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Content"
+          }
+        },
+        "required": ["message", "failed_at"],
+        "title": "Error",
+        "type": "object"
+      },
+      "Field": {
+        "properties": {
+          "id": { "format": "uuid", "title": "Id", "type": "string" },
+          "title": { "title": "Title", "type": "string" },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "system_name": { "title": "System Name", "type": "string" },
+          "status": {
+            "discriminator": {
+              "mapping": {
+                "error": "#/components/schemas/Error",
+                "ok": "#/components/schemas/Ok",
+                "processing": "#/components/schemas/Processing"
+              },
+              "propertyName": "type"
+            },
+            "oneOf": [
+              { "$ref": "#/components/schemas/Ok" },
+              { "$ref": "#/components/schemas/Error" },
+              { "$ref": "#/components/schemas/Processing" }
+            ],
+            "title": "Status"
+          }
+        },
+        "required": ["id", "title", "created_at", "system_name", "status"],
+        "title": "Field",
+        "type": "object"
+      },
+      "Ok": {
+        "properties": {
+          "type": {
+            "const": "ok",
+            "default": "ok",
+            "enum": ["ok"],
+            "title": "Type",
+            "type": "string"
+          },
+          "content": { "title": "Content", "type": "string" },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          },
+          "updated_by": { "title": "Updated By", "type": "string" }
+        },
+        "required": ["content", "updated_at", "updated_by"],
+        "title": "Ok",
+        "type": "object"
+      },
+      "Processing": {
+        "properties": {
+          "type": {
+            "const": "processing",
+            "default": "processing",
+            "enum": ["processing"],
+            "title": "Type",
+            "type": "string"
+          },
+          "initiated_by": { "title": "Initiated By", "type": "string" },
+          "initiated_at": {
+            "format": "date-time",
+            "title": "Initiated At",
+            "type": "string"
+          },
+          "content": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Content"
+          },
+          "error": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Error"
+          }
+        },
+        "required": ["initiated_by", "initiated_at"],
+        "title": "Processing",
+        "type": "object"
+      },
+      "FeedbackPayload": {
+        "properties": {
+          "score": { "title": "Score", "type": "integer" },
+          "score_reason": { "title": "Score Reason", "type": "string" }
+        },
+        "required": ["score", "score_reason"],
+        "title": "FeedbackPayload",
+        "type": "object"
+      },
+      "Voucher": {
+        "properties": {
+          "code": { "title": "Code", "type": "string" },
+          "base_url": { "title": "Base Url", "type": "string" }
+        },
+        "required": ["code", "base_url"],
+        "title": "Voucher",
+        "type": "object"
+      },
+      "FinalizeLinkPayload": {
+        "properties": {
+          "voucher_code": { "title": "Voucher Code", "type": "string" }
+        },
+        "required": ["voucher_code"],
+        "title": "FinalizeLinkPayload",
+        "type": "object"
+      },
+      "InstallationStatus": {
+        "properties": {
+          "is_linked": { "title": "Is Linked", "type": "boolean" }
+        },
+        "required": ["is_linked"],
+        "title": "InstallationStatus",
+        "type": "object"
+      },
+      "Plan": {
+        "properties": {
+          "id": { "format": "uuid", "title": "Id", "type": "string" },
+          "title": { "title": "Title", "type": "string" },
+          "price": {
+            "anyOf": [{ "type": "number" }, { "type": "string" }],
+            "title": "Price"
+          },
+          "price_vat": {
+            "anyOf": [{ "type": "number" }, { "type": "string" }],
+            "title": "Price Vat"
+          },
+          "billing_period": { "title": "Billing Period", "type": "string" },
+          "is_default": { "title": "Is Default", "type": "boolean" }
+        },
+        "required": [
+          "id",
+          "title",
+          "price",
+          "price_vat",
+          "billing_period",
+          "is_default"
+        ],
+        "title": "Plan",
+        "type": "object"
+      },
+      "Quota": {
+        "properties": {
+          "used": { "title": "Used", "type": "integer" },
+          "limit": { "title": "Limit", "type": "integer" }
+        },
+        "required": ["used", "limit"],
+        "title": "Quota",
+        "type": "object"
+      },
+      "Schedule": {
+        "properties": {
+          "new_plan": { "$ref": "#/components/schemas/Plan" },
+          "scheduled_to": {
+            "anyOf": [
+              { "format": "date-time", "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Scheduled To"
+          }
+        },
+        "required": ["new_plan"],
+        "title": "Schedule",
+        "type": "object"
+      },
+      "ShowcaseAccount": {
+        "properties": {
+          "type": {
+            "const": "showcase",
+            "default": "showcase",
+            "enum": ["showcase"],
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "title": "ShowcaseAccount",
+        "type": "object"
+      },
+      "StandardAccount": {
+        "properties": {
+          "is_linked": { "title": "Is Linked", "type": "boolean" },
+          "quota": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/Quota" },
+              { "type": "null" }
+            ]
+          },
+          "subscription": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/Subscription" },
+              { "type": "null" }
+            ]
+          },
+          "type": {
+            "const": "standard",
+            "default": "standard",
+            "enum": ["standard"],
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["is_linked"],
+        "title": "StandardAccount",
+        "type": "object"
+      },
+      "Subscription": {
+        "properties": {
+          "data": { "$ref": "#/components/schemas/Plan" },
+          "schedule": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/Schedule" },
+              { "type": "null" }
+            ]
+          },
+          "active_from": {
+            "format": "date-time",
+            "title": "Active From",
+            "type": "string"
+          }
+        },
+        "required": ["data", "active_from"],
+        "title": "Subscription",
+        "type": "object"
+      },
+      "Tenant": {
+        "properties": {
+          "id": { "format": "uuid", "title": "Id", "type": "string" },
+          "name": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Name"
+          },
+          "account": {
+            "discriminator": {
+              "mapping": {
+                "showcase": "#/components/schemas/ShowcaseAccount",
+                "standard": "#/components/schemas/StandardAccount"
+              },
+              "propertyName": "type"
+            },
+            "oneOf": [
+              { "$ref": "#/components/schemas/ShowcaseAccount" },
+              { "$ref": "#/components/schemas/StandardAccount" }
+            ],
+            "title": "Account"
+          }
+        },
+        "required": ["id", "account"],
+        "title": "Tenant",
+        "type": "object"
+      },
+      "EnsureIssueResponse": {
+        "properties": {
+          "issue": { "$ref": "#/components/schemas/Issue" },
+          "linked_zendesk_issues": {
+            "items": { "$ref": "#/components/schemas/Issue" },
+            "title": "Linked Zendesk Issues",
+            "type": "array"
+          }
+        },
+        "required": ["issue", "linked_zendesk_issues"],
+        "title": "EnsureIssueResponse",
+        "type": "object"
+      },
+      "Issue": {
+        "properties": {
+          "id": { "title": "Id", "type": "string" },
+          "tenant": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/Tenant" },
+              { "type": "null" }
+            ]
+          },
+          "fields": {
+            "items": { "$ref": "#/components/schemas/Field" },
+            "title": "Fields",
+            "type": "array"
+          },
+          "extra": {
+            "discriminator": {
+              "mapping": {
+                "jira": "#/components/schemas/JiraIssue",
+                "zendesk": "#/components/schemas/ZendeskTicket"
+              },
+              "propertyName": "type"
+            },
+            "oneOf": [
+              { "$ref": "#/components/schemas/ZendeskTicket" },
+              { "$ref": "#/components/schemas/JiraIssue" }
+            ],
+            "title": "Extra"
+          }
+        },
+        "required": ["id", "fields", "extra"],
+        "title": "Issue",
+        "type": "object"
+      },
+      "JiraIssue": {
+        "properties": {
+          "type": {
+            "const": "jira",
+            "default": "jira",
+            "enum": ["jira"],
+            "title": "Type",
+            "type": "string"
+          },
+          "key": { "title": "Key", "type": "string" }
+        },
+        "required": ["key"],
+        "title": "JiraIssue",
+        "type": "object"
+      },
+      "ZendeskTicket": {
+        "properties": {
+          "type": {
+            "const": "zendesk",
+            "default": "zendesk",
+            "enum": ["zendesk"],
+            "title": "Type",
+            "type": "string"
+          },
+          "title": { "title": "Title", "type": "string" },
+          "url": { "title": "Url", "type": "string" }
+        },
+        "required": ["title", "url"],
+        "title": "ZendeskTicket",
+        "type": "object"
+      },
+      "EnsureIssuePayload": {
+        "properties": {
+          "issue_id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Issue Id"
+          }
+        },
+        "title": "EnsureIssuePayload",
+        "type": "object"
+      },
+      "InstalledResponse": {
+        "properties": { "status": { "title": "Status", "type": "string" } },
+        "required": ["status"],
+        "title": "InstalledResponse",
+        "type": "object"
+      },
+      "AddAccountToVoucherResponse": {
+        "properties": {
+          "callback_url": { "title": "Callback Url", "type": "string" }
+        },
+        "required": ["callback_url"],
+        "title": "AddAccountToVoucherResponse",
+        "type": "object"
+      },
+      "AddAccountToVoucherPayload": {
+        "properties": {
+          "auth0_jwt": { "title": "Auth0 Jwt", "type": "string" },
+          "voucher_code": { "title": "Voucher Code", "type": "string" }
+        },
+        "required": ["auth0_jwt", "voucher_code"],
+        "title": "AddAccountToVoucherPayload",
+        "type": "object"
+      }
+    },
+    "securitySchemes": { "JiraJWT": { "type": "http", "scheme": "bearer" } }
+  },
+  "servers": []
+}

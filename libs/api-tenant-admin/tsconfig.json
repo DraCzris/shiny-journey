@@ -1,0 +1,15 @@
+{
+  "extends": "@waypoint/typescript-config/tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "./dist-types"
+  },
+  "include": [
+    "./.eslintrc.js",
+    "**/*.js",
+    "**/*.ts",
+    "**/*.tsx",
+    "../../libs/typescript-config/custom-types/**/*"
+  ],
+  "exclude": ["dist-types"]
+}

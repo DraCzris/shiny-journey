@@ -1,0 +1,16 @@
+{
+  "extends": "./libs/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "./dist-types"
+  },
+  "include": [
+    "**/*.js",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.json",
+    // dot folders/files need to be explicitly stated, otherwise TS ignores them
+    "**/.eslintrc.js"
+  ],
+  "exclude": ["apps/**", "libs/**", "dist-types/**/*", "node_modules/**/*"]
+}

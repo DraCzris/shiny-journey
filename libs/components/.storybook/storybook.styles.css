@@ -1,0 +1,5 @@
+/* change body color for dark  theme based on data-mode= dark */
+[data-mode='dark'] body {
+  background-color: #111827;
+  color: #fff;
+}

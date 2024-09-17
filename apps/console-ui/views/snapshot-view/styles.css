@@ -1,0 +1,61 @@
+.node {
+  cursor: pointer;
+}
+
+.node.highlighted {
+  stroke: rgb(94 234 212);
+  stroke-width: 2px;
+}
+
+.node text {
+  fill: white;
+  stroke: none;
+}
+
+.node circle.green {
+  fill: #22c55e;
+}
+
+.node circle.yellow {
+  fill: #eab308;
+}
+
+.node circle.red {
+  fill: #b91c1c;
+}
+
+.node circle.blue {
+  fill: #3b82f6;
+}
+
+.node circle.purple {
+  fill: #a855f7;
+}
+
+.node circle.gray {
+  fill: #6b7280;
+}
+
+.link {
+  fill: none;
+  stroke: #4b5563;
+
+  stroke-width: 1px;
+}
+
+.link.highlighted {
+  stroke: rgb(94 234 212);
+  stroke-dasharray: 10;
+  stroke-dashoffset: 0;
+
+  animation: dash-animation 8s infinite linear;
+  transition:
+    stroke 0.3s ease,
+    stroke-dasharray 0.3s ease;
+}
+
+@keyframes dash-animation {
+  to {
+    stroke-dashoffset: -100; /* Dash offset */
+  }
+}

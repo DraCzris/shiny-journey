@@ -1,0 +1,53 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "module": "esnext",
+    "target": "esnext",
+    "lib": ["dom", "es2019"],
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "jsx": "preserve",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "allowJs": true,
+    "isolatedModules": true,
+    "noEmit": false,
+    "incremental": true,
+    "forceConsistentCasingInFileNames": true,
+    "rootDir": "../../",
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "composite": true,
+    "outDir": "./dist-types",
+    // @TODO
+    // "checkJs": true,
+    "paths": {
+      // overwrite storybook types which inject old emotion JSX types
+      // can be removed once storybook uses emotion 11 for its internal theming
+      "@storybook/theming": ["custom-types/emotion__react"],
+      // remove once webpack-bundle-analyzer has correct types
+      "webpack-bundle-analyzer": ["custom-types/webpack-bundle-analyzer"]
+    },
+    "plugins": [
+      {
+        "name": "@styled/typescript-styled-plugin"
+      }
+    ]
+  },
+  "include": ["svgr.d.ts"],
+  "exclude": ["node_modules", "dist", "dist-types", "cypress", ".yarn"],
+  "compileOnSave": false,
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs",
+      "target": "es5",
+      "typeRoots": ["custom-types"],
+      "paths": {
+        "waypoint/*": ["./*"]
+      }
+    }
+  }
+}

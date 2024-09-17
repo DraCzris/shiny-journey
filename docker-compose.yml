@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  console:
+    image: test:test
+    ports:
+      - '3000:3000'
+    environment:
+      HTTP_BASIC_AUTH: 'admin:admin'

@@ -1,0 +1,9 @@
+// Used for Next.js apps
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "plugins": [{ "name": "next" }],
+    "noEmit": true,
+    "emitDeclarationOnly": false
+  }
+}

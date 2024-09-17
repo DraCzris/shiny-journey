@@ -1,0 +1,1465 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Tenant API",
+    "version": "1",
+    "description": "API used for tenant application"
+  },
+  "paths": {
+    "/get-tenant/": {
+      "get": {
+        "operationId": "get_tenant",
+        "summary": "Get Tenant",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Tenant" }
+              }
+            }
+          }
+        },
+        "tags": ["Tenant"],
+        "security": [{ "Auth0": [] }]
+      }
+    },
+    "/onboarding-status/": {
+      "get": {
+        "operationId": "onboarding_status",
+        "summary": "Onboarding Status",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OnboardingStatus" }
+              }
+            }
+          }
+        },
+        "tags": ["Onboarding"],
+        "security": [{ "Auth0Signup": [] }]
+      }
+    },
+    "/get-plans/": {
+      "get": {
+        "operationId": "get_plans",
+        "summary": "Get Plans",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/GetPlansResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["Tenant"],
+        "security": [{ "Auth0Signup": [] }]
+      }
+    },
+    "/accept-terms/": {
+      "post": {
+        "operationId": "accept_terms",
+        "summary": "Accept Terms",
+        "parameters": [],
+        "responses": { "200": { "description": "OK" } },
+        "tags": ["Onboarding"],
+        "security": [{ "Auth0Signup": [] }]
+      }
+    },
+    "/set-initial-plan/": {
+      "post": {
+        "operationId": "set_initial_plan",
+        "summary": "Set Initial Plan",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SetInitialPlanResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Onboarding"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/SetInitialPlanPayload" }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "Auth0Signup": [] }]
+      }
+    },
+    "/set-plan/": {
+      "post": {
+        "operationId": "set_plan",
+        "summary": "Set Plan",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    { "$ref": "#/components/schemas/Subscription" },
+                    { "type": "null" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Tenant"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/SetPlanPayload" }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "Auth0Standard": [] }]
+      }
+    },
+    "/integrations/zendesk/configure/": {
+      "post": {
+        "operationId": "configure_zendesk",
+        "summary": "Configure Zendesk",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ZendeskConfiguration"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Integrations"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ZendeskConfiguration" }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "Auth0Standard": [] }]
+      }
+    },
+    "/integrations/zendesk/": {
+      "get": {
+        "operationId": "zendesk_info",
+        "summary": "Zendesk Info",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ZendeskInfo" }
+              }
+            }
+          }
+        },
+        "tags": ["Integrations"],
+        "security": [{ "Auth0Standard": [] }]
+      }
+    },
+    "/integrations/jira/": {
+      "get": {
+        "operationId": "jira_info",
+        "summary": "Jira Info",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/JiraInfo" }
+              }
+            }
+          }
+        },
+        "tags": ["Integrations"],
+        "security": [{ "Auth0Standard": [] }]
+      }
+    },
+    "/integrations/jira-api/": {
+      "get": {
+        "operationId": "jira_api_info",
+        "summary": "Jira Api Info",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JiraAPIConfigurationResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Integrations"],
+        "security": [{ "Auth0": [] }]
+      }
+    },
+    "/integrations/jira-api/configure/": {
+      "post": {
+        "operationId": "configure_jira_api",
+        "summary": "Configure Jira Api",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JiraAPIConfiguration"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Integrations"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/JiraAPIConfiguration" }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "Auth0": [] }]
+      }
+    },
+    "/integrations/jira/configure/change-project-enabled/": {
+      "post": {
+        "operationId": "update_jira_project",
+        "summary": "Update Jira Project",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProjectStatus" }
+              }
+            }
+          }
+        },
+        "tags": ["Integrations"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ProjectStatus" }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "Auth0Standard": [] }]
+      }
+    },
+    "/integrations/zendesk/configure/field-detect/": {
+      "post": {
+        "operationId": "zendesk_field_detection",
+        "summary": "Zendesk Field Detect",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ZendeskField" }
+              }
+            }
+          }
+        },
+        "tags": ["Integrations"],
+        "security": [{ "Auth0Standard": [] }]
+      }
+    },
+    "/integrations/": {
+      "get": {
+        "operationId": "integrations",
+        "summary": "Integrations",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SupportedIntegrations"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Integrations"],
+        "security": [{ "Auth0": [] }]
+      }
+    },
+    "/issues/analyzed/": {
+      "get": {
+        "operationId": "analyzed_issues",
+        "summary": "Analyzed Issues",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": { "$ref": "#/components/schemas/AnalyzedIssue" },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Metrics"],
+        "security": [{ "Auth0": [] }]
+      }
+    },
+    "/metrics/cycle-time/": {
+      "get": {
+        "operationId": "metrics_cycle_time",
+        "summary": "Metrics Cycle Time",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MetricsCycleTime" }
+              }
+            }
+          }
+        },
+        "tags": ["Metrics"],
+        "security": [{ "Auth0": [] }]
+      }
+    },
+    "/report/analysis-status/": {
+      "get": {
+        "operationId": "report_analysis_status",
+        "summary": "Analysis Report Status",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalysisReportStatus"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Reports"],
+        "security": [{ "Auth0": [] }]
+      }
+    },
+    "/report/analysis/": {
+      "get": {
+        "operationId": "report_analysis",
+        "summary": "Analysis Report",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AnalysisReport" }
+              }
+            }
+          }
+        },
+        "tags": ["Reports"],
+        "security": [{ "Auth0": [] }]
+      }
+    },
+    "/report/trigger-analysis/": {
+      "post": {
+        "operationId": "trigger_analysis",
+        "summary": "Trigger Report Analysis",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalysisReportStatus"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Reports"],
+        "security": [{ "Auth0": [] }]
+      }
+    },
+    "/set-account-type/": {
+      "post": {
+        "operationId": "set_account_type",
+        "summary": "Set Account Type",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OnboardingStatus" }
+              }
+            }
+          }
+        },
+        "tags": ["Tenant"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/AccountTypePayload" }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "Auth0Signup": [] }]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Plan": {
+        "properties": {
+          "id": { "format": "uuid", "title": "Id", "type": "string" },
+          "title": { "title": "Title", "type": "string" },
+          "price": {
+            "anyOf": [{ "type": "number" }, { "type": "string" }],
+            "title": "Price"
+          },
+          "price_vat": {
+            "anyOf": [{ "type": "number" }, { "type": "string" }],
+            "title": "Price Vat"
+          },
+          "billing_period": { "title": "Billing Period", "type": "string" },
+          "is_default": { "title": "Is Default", "type": "boolean" }
+        },
+        "required": [
+          "id",
+          "title",
+          "price",
+          "price_vat",
+          "billing_period",
+          "is_default"
+        ],
+        "title": "Plan",
+        "type": "object"
+      },
+      "Quota": {
+        "properties": {
+          "used": { "title": "Used", "type": "integer" },
+          "limit": { "title": "Limit", "type": "integer" }
+        },
+        "required": ["used", "limit"],
+        "title": "Quota",
+        "type": "object"
+      },
+      "Schedule": {
+        "properties": {
+          "new_plan": { "$ref": "#/components/schemas/Plan" },
+          "scheduled_to": {
+            "anyOf": [
+              { "format": "date-time", "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Scheduled To"
+          }
+        },
+        "required": ["new_plan"],
+        "title": "Schedule",
+        "type": "object"
+      },
+      "ShowcaseAccount": {
+        "properties": {
+          "type": {
+            "const": "showcase",
+            "default": "showcase",
+            "enum": ["showcase"],
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "title": "ShowcaseAccount",
+        "type": "object"
+      },
+      "StandardAccount": {
+        "properties": {
+          "is_linked": { "title": "Is Linked", "type": "boolean" },
+          "quota": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/Quota" },
+              { "type": "null" }
+            ]
+          },
+          "subscription": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/Subscription" },
+              { "type": "null" }
+            ]
+          },
+          "type": {
+            "const": "standard",
+            "default": "standard",
+            "enum": ["standard"],
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["is_linked"],
+        "title": "StandardAccount",
+        "type": "object"
+      },
+      "Subscription": {
+        "properties": {
+          "data": { "$ref": "#/components/schemas/Plan" },
+          "schedule": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/Schedule" },
+              { "type": "null" }
+            ]
+          },
+          "active_from": {
+            "format": "date-time",
+            "title": "Active From",
+            "type": "string"
+          }
+        },
+        "required": ["data", "active_from"],
+        "title": "Subscription",
+        "type": "object"
+      },
+      "Tenant": {
+        "properties": {
+          "id": { "format": "uuid", "title": "Id", "type": "string" },
+          "name": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Name"
+          },
+          "account": {
+            "discriminator": {
+              "mapping": {
+                "showcase": "#/components/schemas/ShowcaseAccount",
+                "standard": "#/components/schemas/StandardAccount"
+              },
+              "propertyName": "type"
+            },
+            "oneOf": [
+              { "$ref": "#/components/schemas/ShowcaseAccount" },
+              { "$ref": "#/components/schemas/StandardAccount" }
+            ],
+            "title": "Account"
+          }
+        },
+        "required": ["id", "account"],
+        "title": "Tenant",
+        "type": "object"
+      },
+      "AccountType": {
+        "enum": ["showcase", "standard"],
+        "title": "AccountType",
+        "type": "string"
+      },
+      "OnboardingStatus": {
+        "properties": {
+          "has_accepted_terms": {
+            "title": "Has Accepted Terms",
+            "type": "boolean"
+          },
+          "has_subscription": {
+            "title": "Has Subscription",
+            "type": "boolean"
+          },
+          "account_type": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/AccountType" },
+              { "type": "null" }
+            ]
+          }
+        },
+        "required": ["has_accepted_terms", "has_subscription"],
+        "title": "OnboardingStatus",
+        "type": "object"
+      },
+      "GetPlansResponse": {
+        "properties": {
+          "plans": {
+            "items": { "$ref": "#/components/schemas/Plan" },
+            "title": "Plans",
+            "type": "array"
+          },
+          "current_subscription": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/Subscription" },
+              { "type": "null" }
+            ]
+          }
+        },
+        "required": ["plans", "current_subscription"],
+        "title": "GetPlansResponse",
+        "type": "object"
+      },
+      "SetInitialPlanResponse": {
+        "properties": {
+          "payment_link": { "title": "Payment Link", "type": "string" }
+        },
+        "required": ["payment_link"],
+        "title": "SetInitialPlanResponse",
+        "type": "object"
+      },
+      "SetInitialPlanPayload": {
+        "properties": {
+          "plan_id": { "format": "uuid", "title": "Plan Id", "type": "string" },
+          "success_url": { "title": "Success Url", "type": "string" },
+          "cancel_url": { "title": "Cancel Url", "type": "string" }
+        },
+        "required": ["plan_id", "success_url", "cancel_url"],
+        "title": "SetInitialPlanPayload",
+        "type": "object"
+      },
+      "SetPlanPayload": {
+        "properties": {
+          "plan_id": { "format": "uuid", "title": "Plan Id", "type": "string" }
+        },
+        "required": ["plan_id"],
+        "title": "SetPlanPayload",
+        "type": "object"
+      },
+      "ZendeskConfiguration": {
+        "properties": {
+          "email": { "title": "Email", "type": "string" },
+          "token": { "title": "Token", "type": "string" },
+          "subdomain": { "title": "Subdomain", "type": "string" }
+        },
+        "required": ["email", "token", "subdomain"],
+        "title": "ZendeskConfiguration",
+        "type": "object"
+      },
+      "ZendeskField": {
+        "properties": {
+          "id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Id"
+          },
+          "name": { "title": "Name", "type": "string" }
+        },
+        "required": ["name"],
+        "title": "ZendeskField",
+        "type": "object"
+      },
+      "ZendeskInfo": {
+        "properties": {
+          "configuration": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/ZendeskConfiguration" },
+              { "type": "null" }
+            ]
+          },
+          "field_for_jira_integration": {
+            "$ref": "#/components/schemas/ZendeskField"
+          }
+        },
+        "required": ["field_for_jira_integration"],
+        "title": "ZendeskInfo",
+        "type": "object"
+      },
+      "JiraInfo": {
+        "properties": {
+          "projects": {
+            "items": { "$ref": "#/components/schemas/Project" },
+            "title": "Projects",
+            "type": "array"
+          }
+        },
+        "required": ["projects"],
+        "title": "JiraInfo",
+        "type": "object"
+      },
+      "Project": {
+        "properties": {
+          "name": { "title": "Name", "type": "string" },
+          "external_id": { "title": "External Id", "type": "string" },
+          "enabled": { "title": "Enabled", "type": "boolean" }
+        },
+        "required": ["name", "external_id", "enabled"],
+        "title": "Project",
+        "type": "object"
+      },
+      "JiraAPIConfiguration": {
+        "properties": {
+          "email": { "title": "Email", "type": "string" },
+          "token": { "title": "Token", "type": "string" },
+          "base_url": { "title": "Base Url", "type": "string" }
+        },
+        "required": ["email", "token", "base_url"],
+        "title": "JiraAPIConfiguration",
+        "type": "object"
+      },
+      "JiraAPIConfigurationResponse": {
+        "properties": {
+          "configuration": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/JiraAPIConfiguration" },
+              { "type": "null" }
+            ]
+          }
+        },
+        "title": "JiraAPIConfigurationResponse",
+        "type": "object"
+      },
+      "ProjectStatus": {
+        "properties": {
+          "id": { "title": "Id", "type": "string" },
+          "enabled": { "title": "Enabled", "type": "boolean" }
+        },
+        "required": ["id", "enabled"],
+        "title": "ProjectStatus",
+        "type": "object"
+      },
+      "Integration": {
+        "properties": {
+          "enabled": { "title": "Enabled", "type": "boolean" },
+          "configured": { "title": "Configured", "type": "boolean" },
+          "custom_action": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Custom Action"
+          }
+        },
+        "required": ["enabled", "configured"],
+        "title": "Integration",
+        "type": "object"
+      },
+      "SupportedIntegrations": {
+        "properties": {
+          "jira": { "$ref": "#/components/schemas/Integration" },
+          "zendesk": { "$ref": "#/components/schemas/Integration" },
+          "slack": { "$ref": "#/components/schemas/Integration" },
+          "github": { "$ref": "#/components/schemas/Integration" },
+          "jira_api": { "$ref": "#/components/schemas/Integration" }
+        },
+        "required": ["jira", "zendesk", "slack", "github", "jira_api"],
+        "title": "SupportedIntegrations",
+        "type": "object"
+      },
+      "AnalyzedIssue": {
+        "properties": {
+          "id": { "title": "Id", "type": "string" },
+          "title": { "title": "Title", "type": "string" },
+          "url": { "title": "Url", "type": "string" },
+          "summary": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Summary"
+          }
+        },
+        "required": ["id", "title", "url"],
+        "title": "AnalyzedIssue",
+        "type": "object"
+      },
+      "MetricsCycleTime": {
+        "properties": {
+          "all_time": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/TimeFrameMetrics" },
+              { "type": "null" }
+            ]
+          },
+          "last_365_days": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/TimeFrameMetrics" },
+              { "type": "null" }
+            ]
+          },
+          "last_30_days": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/TimeFrameMetrics" },
+              { "type": "null" }
+            ]
+          },
+          "last_7_days": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/TimeFrameMetrics" },
+              { "type": "null" }
+            ]
+          }
+        },
+        "title": "MetricsCycleTime",
+        "type": "object"
+      },
+      "TimeFrameMetrics": {
+        "properties": {
+          "total_average": { "title": "Total Average", "type": "number" },
+          "processed_average": {
+            "title": "Processed Average",
+            "type": "number"
+          },
+          "unprocessed_average": {
+            "title": "Unprocessed Average",
+            "type": "number"
+          }
+        },
+        "required": [
+          "total_average",
+          "processed_average",
+          "unprocessed_average"
+        ],
+        "title": "TimeFrameMetrics",
+        "type": "object"
+      },
+      "AnalysisReportStatus": {
+        "properties": {
+          "status": {
+            "anyOf": [
+              {
+                "discriminator": {
+                  "mapping": {
+                    "completed": "#/components/schemas/Completed",
+                    "pending": "#/components/schemas/Pending"
+                  },
+                  "propertyName": "type"
+                },
+                "oneOf": [
+                  { "$ref": "#/components/schemas/Pending" },
+                  { "$ref": "#/components/schemas/Completed" }
+                ]
+              },
+              { "type": "null" }
+            ],
+            "nullable": true,
+            "title": "Status"
+          }
+        },
+        "required": ["status"],
+        "title": "AnalysisReportStatus",
+        "type": "object"
+      },
+      "Completed": {
+        "properties": {
+          "type": {
+            "const": "completed",
+            "default": "completed",
+            "enum": ["completed"],
+            "title": "Type",
+            "type": "string"
+          },
+          "scheduled_at": {
+            "format": "date-time",
+            "title": "Scheduled At",
+            "type": "string"
+          },
+          "started_at": {
+            "format": "date-time",
+            "title": "Started At",
+            "type": "string"
+          },
+          "finished_at": {
+            "format": "date-time",
+            "title": "Finished At",
+            "type": "string"
+          }
+        },
+        "required": ["scheduled_at", "started_at", "finished_at"],
+        "title": "Completed",
+        "type": "object"
+      },
+      "Pending": {
+        "properties": {
+          "type": {
+            "const": "pending",
+            "default": "pending",
+            "enum": ["pending"],
+            "title": "Type",
+            "type": "string"
+          },
+          "scheduled_at": {
+            "format": "date-time",
+            "title": "Scheduled At",
+            "type": "string"
+          }
+        },
+        "required": ["scheduled_at"],
+        "title": "Pending",
+        "type": "object"
+      },
+      "AnalysisReport": {
+        "properties": {
+          "interventions": {
+            "default": [],
+            "items": { "$ref": "#/components/schemas/Intervention" },
+            "title": "Interventions",
+            "type": "array"
+          },
+          "counts": { "$ref": "#/components/schemas/ReportCounts" }
+        },
+        "required": ["counts"],
+        "title": "AnalysisReport",
+        "type": "object"
+      },
+      "AnalyzedBehaviour": {
+        "properties": {
+          "confidence": { "title": "Confidence", "type": "integer" },
+          "nature": { "$ref": "#/components/schemas/Nature" },
+          "matched_symptoms": {
+            "items": { "$ref": "#/components/schemas/ReportBehaviourMatch" },
+            "title": "Matched Symptoms",
+            "type": "array"
+          },
+          "matched_features": {
+            "items": { "$ref": "#/components/schemas/ReportBehaviourMatch" },
+            "title": "Matched Features",
+            "type": "array"
+          }
+        },
+        "required": ["confidence", "nature"],
+        "title": "AnalyzedBehaviour",
+        "type": "object"
+      },
+      "Behaviour": {
+        "properties": {
+          "id": { "format": "uuid", "title": "Id", "type": "string" },
+          "content": { "title": "Content", "type": "object" }
+        },
+        "required": ["content"],
+        "title": "Behaviour",
+        "type": "object"
+      },
+      "BehaviourContentMatch": {
+        "properties": {
+          "behaviour": { "$ref": "#/components/schemas/Behaviour" },
+          "reasoning": {
+            "default": "",
+            "title": "Reasoning",
+            "type": "string"
+          },
+          "confidence": { "title": "Confidence", "type": "integer" }
+        },
+        "required": ["behaviour", "confidence"],
+        "title": "BehaviourContentMatch",
+        "type": "object"
+      },
+      "BehaviourWithType": {
+        "properties": {
+          "id": { "format": "uuid", "title": "Id", "type": "string" },
+          "content": { "title": "Content", "type": "object" },
+          "type": {
+            "enum": ["symptom", "feature"],
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": ["content", "type"],
+        "title": "BehaviourWithType",
+        "type": "object"
+      },
+      "BugReportList": {
+        "properties": {
+          "type": {
+            "const": "bug_report_list",
+            "default": "bug_report_list",
+            "enum": ["bug_report_list"],
+            "title": "Type",
+            "type": "string"
+          },
+          "data": {
+            "items": {
+              "discriminator": {
+                "mapping": {
+                  "jira_closed": "#/components/schemas/JiraClosed",
+                  "jira_open": "#/components/schemas/JiraOpen"
+                },
+                "propertyName": "type"
+              },
+              "oneOf": [
+                { "$ref": "#/components/schemas/JiraClosed" },
+                { "$ref": "#/components/schemas/JiraOpen" }
+              ]
+            },
+            "title": "Data",
+            "type": "array"
+          }
+        },
+        "required": ["data"],
+        "title": "BugReportList",
+        "type": "object"
+      },
+      "Classification": {
+        "enum": [
+          "bug",
+          "not_bug__feature_not_supported",
+          "not_bug__invalid_symptom"
+        ],
+        "title": "Classification",
+        "type": "string"
+      },
+      "CompletenessRequirement": {
+        "properties": {
+          "id": { "title": "Id", "type": "string" },
+          "definition": { "title": "Definition", "type": "string" }
+        },
+        "required": ["id", "definition"],
+        "title": "CompletenessRequirement",
+        "type": "object"
+      },
+      "CompletenessRequirementResult": {
+        "properties": {
+          "is_fulfilled": { "title": "Is Fulfilled", "type": "boolean" },
+          "summary": { "title": "Summary", "type": "string" },
+          "question": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Question"
+          },
+          "requirement": {
+            "$ref": "#/components/schemas/CompletenessRequirement"
+          }
+        },
+        "required": ["is_fulfilled", "summary", "requirement"],
+        "title": "CompletenessRequirementResult",
+        "type": "object"
+      },
+      "Event": {
+        "properties": {
+          "type": { "$ref": "#/components/schemas/EventType" },
+          "result": { "$ref": "#/components/schemas/ReportAnalysisResult" },
+          "summary": {
+            "items": {
+              "discriminator": {
+                "mapping": {
+                  "bug_report_list": "#/components/schemas/BugReportList",
+                  "html": "#/components/schemas/HtmlContent",
+                  "merge_suggestion": "#/components/schemas/MergeSuggestion",
+                  "unmet_requirements_list": "#/components/schemas/UnmetRequirementsList"
+                },
+                "propertyName": "type"
+              },
+              "oneOf": [
+                { "$ref": "#/components/schemas/HtmlContent" },
+                { "$ref": "#/components/schemas/BugReportList" },
+                { "$ref": "#/components/schemas/UnmetRequirementsList" },
+                { "$ref": "#/components/schemas/MergeSuggestion" }
+              ]
+            },
+            "title": "Summary",
+            "type": "array"
+          },
+          "report": { "$ref": "#/components/schemas/JiraOpen" },
+          "reroute_data": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/RerouteEventData" },
+              { "type": "null" }
+            ]
+          },
+          "confidence": {
+            "default": 96,
+            "title": "Confidence",
+            "type": "integer"
+          }
+        },
+        "required": ["type", "result", "summary", "report"],
+        "title": "Event",
+        "type": "object"
+      },
+      "EventType": {
+        "enum": [
+          "not_a_bug",
+          "incomplete",
+          "reoccurring_report",
+          "link_related",
+          "reroute",
+          "merge"
+        ],
+        "title": "EventType",
+        "type": "string"
+      },
+      "HtmlContent": {
+        "properties": {
+          "type": {
+            "const": "html",
+            "default": "html",
+            "enum": ["html"],
+            "title": "Type",
+            "type": "string"
+          },
+          "content": { "title": "Content", "type": "string" }
+        },
+        "required": ["content"],
+        "title": "HtmlContent",
+        "type": "object"
+      },
+      "Intervention": {
+        "properties": {
+          "id": { "format": "uuid", "title": "Id", "type": "string" },
+          "event": { "$ref": "#/components/schemas/Event" }
+        },
+        "required": ["id", "event"],
+        "title": "Intervention",
+        "type": "object"
+      },
+      "Investigation": {
+        "properties": {
+          "id": { "format": "uuid", "title": "Id", "type": "string" },
+          "classification": { "$ref": "#/components/schemas/Classification" },
+          "symptom": {
+            "anyOf": [{ "type": "object" }, { "type": "null" }],
+            "title": "Symptom"
+          },
+          "feature": {
+            "anyOf": [{ "type": "object" }, { "type": "null" }],
+            "title": "Feature"
+          }
+        },
+        "required": ["id", "classification"],
+        "title": "Investigation",
+        "type": "object"
+      },
+      "JiraClosed": {
+        "properties": {
+          "id": { "format": "uuid", "title": "Id", "type": "string" },
+          "public_id": { "title": "Public Id", "type": "string" },
+          "title": { "title": "Title", "type": "string" },
+          "description": { "title": "Description", "type": "string" },
+          "link": { "title": "Link", "type": "string" },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "assignee": { "title": "Assignee", "type": "string" },
+          "type": {
+            "const": "jira_closed",
+            "default": "jira_closed",
+            "enum": ["jira_closed"],
+            "title": "Type",
+            "type": "string"
+          },
+          "solver": { "title": "Solver", "type": "string" },
+          "closed_at": {
+            "format": "date-time",
+            "title": "Closed At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "public_id",
+          "title",
+          "description",
+          "link",
+          "created_at",
+          "solver",
+          "closed_at"
+        ],
+        "title": "JiraClosed",
+        "type": "object"
+      },
+      "JiraOpen": {
+        "properties": {
+          "id": { "format": "uuid", "title": "Id", "type": "string" },
+          "public_id": { "title": "Public Id", "type": "string" },
+          "title": { "title": "Title", "type": "string" },
+          "description": { "title": "Description", "type": "string" },
+          "link": { "title": "Link", "type": "string" },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "assignee": { "title": "Assignee", "type": "string" },
+          "type": {
+            "const": "jira_open",
+            "default": "jira_open",
+            "enum": ["jira_open"],
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "public_id",
+          "title",
+          "description",
+          "link",
+          "created_at"
+        ],
+        "title": "JiraOpen",
+        "type": "object"
+      },
+      "MatchingIteration": {
+        "properties": {
+          "id": { "title": "Id", "type": "string" },
+          "searched_behaviour": { "$ref": "#/components/schemas/Behaviour" },
+          "cursor": { "$ref": "#/components/schemas/Behaviour" },
+          "current_matches_result": {
+            "items": { "$ref": "#/components/schemas/BehaviourContentMatch" },
+            "title": "Current Matches Result",
+            "type": "array"
+          },
+          "action": { "title": "Action", "type": "string" },
+          "sub_iteration": {
+            "items": { "$ref": "#/components/schemas/MatchingSubIterations" },
+            "title": "Sub Iteration",
+            "type": "array"
+          }
+        },
+        "required": ["id", "searched_behaviour", "cursor", "action"],
+        "title": "MatchingIteration",
+        "type": "object"
+      },
+      "MatchingLog": {
+        "properties": {
+          "iterations": {
+            "items": { "$ref": "#/components/schemas/MatchingIteration" },
+            "title": "Iterations",
+            "type": "array"
+          },
+          "result": {
+            "items": { "$ref": "#/components/schemas/BehaviourContentMatch" },
+            "title": "Result",
+            "type": "array"
+          }
+        },
+        "title": "MatchingLog",
+        "type": "object"
+      },
+      "MatchingSubIterations": {
+        "properties": {
+          "id": { "title": "Id", "type": "string" },
+          "output": { "title": "Output", "type": "string" }
+        },
+        "required": ["id", "output"],
+        "title": "MatchingSubIterations",
+        "type": "object"
+      },
+      "MergeSuggestion": {
+        "properties": {
+          "type": {
+            "const": "merge_suggestion",
+            "default": "merge_suggestion",
+            "enum": ["merge_suggestion"],
+            "title": "Type",
+            "type": "string"
+          },
+          "merge_source": { "$ref": "#/components/schemas/JiraOpen" },
+          "merge_target": { "$ref": "#/components/schemas/JiraOpen" },
+          "merged_title": { "title": "Merged Title", "type": "string" }
+        },
+        "required": ["merge_source", "merge_target", "merged_title"],
+        "title": "MergeSuggestion",
+        "type": "object"
+      },
+      "Nature": {
+        "enum": ["known", "unknown", "invalid"],
+        "title": "Nature",
+        "type": "string"
+      },
+      "ReportAnalysisResult": {
+        "properties": {
+          "tenant_id": {
+            "format": "uuid",
+            "title": "Tenant Id",
+            "type": "string"
+          },
+          "extracted_feature": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/BehaviourWithType" },
+              { "type": "null" }
+            ]
+          },
+          "extracted_symptom": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/BehaviourWithType" },
+              { "type": "null" }
+            ]
+          },
+          "resolution_matches": {
+            "items": { "$ref": "#/components/schemas/ReportResolutionMatch" },
+            "title": "Resolution Matches",
+            "type": "array"
+          },
+          "is_complete": {
+            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+            "title": "Is Complete"
+          },
+          "feature": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/AnalyzedBehaviour" },
+              { "type": "null" }
+            ]
+          },
+          "feature_matching_log": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/MatchingLog" },
+              { "type": "null" }
+            ]
+          },
+          "symptom": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/AnalyzedBehaviour" },
+              { "type": "null" }
+            ]
+          },
+          "symptom_matching_log": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/MatchingLog" },
+              { "type": "null" }
+            ]
+          },
+          "investigation": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/Investigation" },
+              { "type": "null" }
+            ]
+          }
+        },
+        "required": ["tenant_id"],
+        "title": "ReportAnalysisResult",
+        "type": "object"
+      },
+      "ReportBehaviourMatch": {
+        "properties": {
+          "confidence": { "title": "Confidence", "type": "integer" },
+          "behaviour": { "$ref": "#/components/schemas/Behaviour" }
+        },
+        "required": ["confidence", "behaviour"],
+        "title": "ReportBehaviourMatch",
+        "type": "object"
+      },
+      "ReportCounts": {
+        "properties": {
+          "not_a_bug": {
+            "default": 0,
+            "title": "Not A Bug",
+            "type": "integer"
+          },
+          "incomplete": {
+            "default": 0,
+            "title": "Incomplete",
+            "type": "integer"
+          },
+          "reoccurring_report": {
+            "default": 0,
+            "title": "Reoccurring Report",
+            "type": "integer"
+          },
+          "link_related": {
+            "default": 0,
+            "title": "Link Related",
+            "type": "integer"
+          },
+          "reroute": { "default": 0, "title": "Reroute", "type": "integer" },
+          "merge": { "default": 0, "title": "Merge", "type": "integer" },
+          "total": { "default": 0, "title": "Total", "type": "integer" }
+        },
+        "title": "ReportCounts",
+        "type": "object"
+      },
+      "ReportResolutionMatch": {
+        "properties": {
+          "confidence": { "title": "Confidence", "type": "integer" },
+          "resolution": { "$ref": "#/components/schemas/Resolution" }
+        },
+        "required": ["confidence", "resolution"],
+        "title": "ReportResolutionMatch",
+        "type": "object"
+      },
+      "RerouteEventData": {
+        "properties": {
+          "type": {
+            "const": "reroute_report",
+            "default": "reroute_report",
+            "enum": ["reroute_report"],
+            "title": "Type",
+            "type": "string"
+          },
+          "assignee_from": { "title": "Assignee From", "type": "string" },
+          "assignee_to": { "title": "Assignee To", "type": "string" }
+        },
+        "required": ["assignee_from", "assignee_to"],
+        "title": "RerouteEventData",
+        "type": "object"
+      },
+      "Resolution": {
+        "properties": {
+          "id": { "format": "uuid", "title": "Id", "type": "string" },
+          "classification": { "$ref": "#/components/schemas/Classification" },
+          "resolved_by": { "title": "Resolved By", "type": "string" },
+          "symptom": {
+            "anyOf": [{ "type": "object" }, { "type": "null" }],
+            "title": "Symptom"
+          },
+          "feature": {
+            "anyOf": [{ "type": "object" }, { "type": "null" }],
+            "title": "Feature"
+          }
+        },
+        "required": ["id", "classification", "resolved_by"],
+        "title": "Resolution",
+        "type": "object"
+      },
+      "UnmetRequirementsList": {
+        "properties": {
+          "type": {
+            "const": "unmet_requirements_list",
+            "default": "unmet_requirements_list",
+            "enum": ["unmet_requirements_list"],
+            "title": "Type",
+            "type": "string"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/CompletenessRequirementResult"
+            },
+            "title": "Data",
+            "type": "array"
+          }
+        },
+        "required": ["data"],
+        "title": "UnmetRequirementsList",
+        "type": "object"
+      },
+      "AccountTypePayload": {
+        "properties": {
+          "type": { "$ref": "#/components/schemas/AccountType" }
+        },
+        "required": ["type"],
+        "title": "AccountTypePayload",
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "Auth0": { "type": "http", "scheme": "bearer" },
+      "Auth0Signup": { "type": "http", "scheme": "bearer" },
+      "Auth0Standard": { "type": "http", "scheme": "bearer" }
+    }
+  },
+  "servers": []
+}

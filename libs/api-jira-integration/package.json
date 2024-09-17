@@ -1,0 +1,25 @@
+{
+  "name": "@waypoint/api-jira-integration",
+  "version": "1.0.0",
+  "private": true,
+  "sideEffects": false,
+  "scripts": {
+    "generate-api": "yarn copy-schema && orval",
+    "copy-schema": "cp $INIT_CWD/../../../new-api/apps/jira-api/schema/openapi.json schema/schema.json && prettier --write schema/schema.json"
+  },
+  "devDependencies": {
+    "@tanstack/react-query": "5.29.2",
+    "@types/react": "18.3.1",
+    "@waypoint/eslint-config": "workspace:*",
+    "@waypoint/typescript-config": "workspace:*",
+    "axios": "1.6.8",
+    "orval": "6.29.1",
+    "prettier": "3.2.5",
+    "react": "18.3.1",
+    "typescript": "5.4.5"
+  },
+  "peerDependencies": {
+    "prettier": "3.2.5",
+    "react": "18.2.0"
+  }
+}

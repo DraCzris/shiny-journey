@@ -1,0 +1,6 @@
+export { default as BugAntSlashIcon } from './bug-ant-slash.svg'
+export { default as UserSwitchSolidIcon } from './user-switch-solid.svg'
+export { default as ListIncompleteSolidIcon } from './list-incomplete-solid.svg'
+export { default as MergeDocumentsSolidIcon } from './merge-documents.svg'
+export { default as LinkedDocumentsSolidIcon } from './linked-documents-solid.svg'
+export { default as SparklesSolidIcon } from './sparkles-solid.svg'

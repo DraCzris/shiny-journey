@@ -1,0 +1,8 @@
+{
+  "name": "@waypoint/testing",
+  "devDependencies": {
+    "cypress": "13.9.0",
+    "cypress-iframe": "1.0.1",
+    "typescript": "5.4.5"
+  }
+}

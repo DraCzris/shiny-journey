@@ -1,0 +1,14 @@
+{
+  "extends": "@waypoint/typescript-config/tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "./dist-types",
+    "types": ["cypress", "node"],
+    "sourceMap": false,
+    "paths": {
+      "cypress/utils": ["cypress/utils"]
+    }
+  },
+  "include": ["**/*.js", "**/*.ts", "**/*.tsx"],
+  "exclude": ["dist-types", "cypress"]
+}

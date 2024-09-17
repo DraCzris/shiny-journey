@@ -1,0 +1,1303 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Superadmin API",
+    "version": "1",
+    "description": "API used fow Waypoint app configuration and management"
+  },
+  "paths": {
+    "/analysis-configuration/command/create": {
+      "post": {
+        "operationId": "create_analysis_configuration",
+        "summary": "Create",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalysisConfiguration"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Analysis configuration"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAnalysisConfiguration"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "HttpBasicAuth": [] }]
+      }
+    },
+    "/analysis-configuration/by-tenant-id/{id}": {
+      "get": {
+        "operationId": "get_analysis_configurations",
+        "summary": "Get List",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": { "format": "uuid", "title": "Id", "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AnalysisConfiguration"
+                  },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Analysis configuration"],
+        "security": [{ "HttpBasicAuth": [] }]
+      }
+    },
+    "/analysis-configuration/by-id/{id}": {
+      "get": {
+        "operationId": "get_analysis_configuration",
+        "summary": "Get Detail",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": { "format": "uuid", "title": "Id", "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalysisConfiguration"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Analysis configuration"],
+        "security": [{ "HttpBasicAuth": [] }]
+      },
+      "post": {
+        "operationId": "update_analysis_configuration",
+        "summary": "Update",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": { "format": "uuid", "title": "Id", "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalysisConfiguration"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Analysis configuration"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAnalysisConfiguration"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "HttpBasicAuth": [] }]
+      }
+    },
+    "/analysis-configuration/activate/{id}": {
+      "post": {
+        "operationId": "activate_analysis_configuration",
+        "summary": "Activate",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": { "format": "uuid", "title": "Id", "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AnalysisConfiguration"
+                  },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Analysis configuration"],
+        "security": [{ "HttpBasicAuth": [] }]
+      }
+    },
+    "/nodes-definition/by-id/{id}": {
+      "get": {
+        "operationId": "get_definition_by_id",
+        "summary": "Get By Id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": { "format": "uuid", "title": "Id", "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "discriminator": {
+                    "mapping": {
+                      "node_template": "#/components/schemas/NodeDefinitionTemplateSchema",
+                      "tenant_node": "#/components/schemas/NodeDefinitionSchema"
+                    },
+                    "propertyName": "node_type"
+                  },
+                  "oneOf": [
+                    { "$ref": "#/components/schemas/NodeDefinitionSchema" },
+                    {
+                      "$ref": "#/components/schemas/NodeDefinitionTemplateSchema"
+                    }
+                  ],
+                  "title": "Response"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Node definition"],
+        "security": [{ "HttpBasicAuth": [] }]
+      },
+      "post": {
+        "operationId": "update_node_definition",
+        "summary": "Update",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": { "format": "uuid", "title": "Id", "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NodeDefinitionSchema"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Node definition"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NodeDefinitionCreationSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "HttpBasicAuth": [] }]
+      }
+    },
+    "/nodes-definition/by-tenant-id/{id}": {
+      "get": {
+        "operationId": "get_definitions_by_tenant",
+        "summary": "Get List By Tenant Id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": { "format": "uuid", "title": "Id", "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/NodeDefinitionSchema"
+                  },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Node definition"],
+        "security": [{ "HttpBasicAuth": [] }]
+      }
+    },
+    "/nodes-definition/by-collection-id/{id}": {
+      "get": {
+        "operationId": "get_definitions_by_configuration",
+        "summary": "Get List By Analysis Configuration Id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": { "format": "uuid", "title": "Id", "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "discriminator": {
+                      "mapping": {
+                        "node_template": "#/components/schemas/NodeDefinitionTemplateSchema",
+                        "tenant_node": "#/components/schemas/NodeDefinitionSchema"
+                      },
+                      "propertyName": "node_type"
+                    },
+                    "oneOf": [
+                      { "$ref": "#/components/schemas/NodeDefinitionSchema" },
+                      {
+                        "$ref": "#/components/schemas/NodeDefinitionTemplateSchema"
+                      }
+                    ]
+                  },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Node definition"],
+        "security": [{ "HttpBasicAuth": [] }]
+      }
+    },
+    "/nodes-definition/list/templates": {
+      "get": {
+        "operationId": "get_definitions_templates",
+        "summary": "Get Templates",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/NodeDefinitionTemplateSchema"
+                  },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Node definition"],
+        "security": [{ "HttpBasicAuth": [] }]
+      }
+    },
+    "/nodes-definition/command/create": {
+      "post": {
+        "operationId": "create_definition",
+        "summary": "Create",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NodeDefinitionSchema"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Node definition"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NodeDefinitionCreationSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "HttpBasicAuth": [] }]
+      }
+    },
+    "/nodes-definition/command/create-template": {
+      "post": {
+        "operationId": "create_template_definition",
+        "summary": "Create Template",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NodeDefinitionTemplateSchema"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Node definition"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NodeDefinitionTemplateCreationSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "HttpBasicAuth": [] }]
+      }
+    },
+    "/nodes-definition/template/by-id/{id}": {
+      "post": {
+        "operationId": "update_node_template_definition",
+        "summary": "Update Template",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": { "format": "uuid", "title": "Id", "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NodeDefinitionTemplateSchema"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Node definition"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NodeDefinitionTemplateCreationSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "HttpBasicAuth": [] }]
+      }
+    },
+    "/scope/by-id/{id}": {
+      "get": {
+        "operationId": "get_scope_by_id",
+        "summary": "Get Scope By Id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": { "format": "uuid", "title": "Id", "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ScopeSchema" }
+              }
+            }
+          }
+        },
+        "tags": ["Scope"],
+        "security": [{ "HttpBasicAuth": [] }]
+      }
+    },
+    "/scope/list/by-tenant-id/{id}": {
+      "get": {
+        "operationId": "get_scopes_by_tenant_id",
+        "summary": "Get Scopes By Tenant Id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": { "format": "uuid", "title": "Id", "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": { "$ref": "#/components/schemas/ScopeSchema" },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Scope"],
+        "security": [{ "HttpBasicAuth": [] }]
+      }
+    },
+    "/tenant/list": {
+      "get": {
+        "operationId": "get_tenant_list",
+        "summary": "Get List",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": { "$ref": "#/components/schemas/TenantSchema" },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Tenant"],
+        "security": [{ "HttpBasicAuth": [] }]
+      }
+    },
+    "/tenant/command/delete-technical-tenant": {
+      "post": {
+        "operationId": "delete_technical_tenant",
+        "summary": "Delete Technical Tenant",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TenantSchema" }
+              }
+            }
+          }
+        },
+        "tags": ["Tenant"],
+        "security": [{ "HttpBasicAuth": [] }]
+      }
+    },
+    "/revision/list/by-node-id/{id}": {
+      "get": {
+        "operationId": "get_revisions_by_node",
+        "summary": "Get List By Node Id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": { "format": "uuid", "title": "Id", "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": { "$ref": "#/components/schemas/RevisionSchema" },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Revision"],
+        "security": [{ "HttpBasicAuth": [] }]
+      }
+    },
+    "/revision/by-id/{id}": {
+      "get": {
+        "operationId": "get_revision_by_id",
+        "summary": "Get Detail By Id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": { "format": "uuid", "title": "Id", "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RevisionDetailSchema"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Revision"],
+        "security": [{ "HttpBasicAuth": [] }]
+      }
+    },
+    "/node/list/by-scope-id/{id}": {
+      "get": {
+        "operationId": "get_nodes_by_scope_id",
+        "summary": "Get Nodes By Scope Id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": { "format": "uuid", "title": "Id", "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": { "$ref": "#/components/schemas/NodeSchema" },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Node"],
+        "security": [{ "HttpBasicAuth": [] }]
+      }
+    },
+    "/node/by-id/{id}": {
+      "get": {
+        "operationId": "get_node_by_id",
+        "summary": "Get Detail Id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": { "format": "uuid", "title": "Id", "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NodeSchema" }
+              }
+            }
+          }
+        },
+        "tags": ["Node"],
+        "security": [{ "HttpBasicAuth": [] }]
+      }
+    },
+    "/sandbox/perform": {
+      "post": {
+        "operationId": "perform_sandbox",
+        "summary": "Perform",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PerformResponseSchema"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Sandbox"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PerformRequestSchema" }
+            }
+          },
+          "required": true
+        },
+        "security": [{ "HttpBasicAuth": [] }]
+      }
+    },
+    "/snapshot/by-revision-id/{id}": {
+      "get": {
+        "operationId": "get_snapshot_by_revision",
+        "summary": "Get Snapshot By Revision",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": { "format": "uuid", "title": "Id", "type": "string" },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SnapshotResponseSchema"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Snapshot"],
+        "security": [{ "HttpBasicAuth": [] }]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AnalysisConfiguration": {
+        "properties": {
+          "name": { "title": "Name", "type": "string" },
+          "version": { "title": "Version", "type": "string" },
+          "description": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Description"
+          },
+          "id": { "format": "uuid", "title": "Id", "type": "string" },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "activated_at": {
+            "anyOf": [
+              { "format": "date-time", "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Activated At"
+          }
+        },
+        "required": ["name", "version", "id", "created_at"],
+        "title": "AnalysisConfiguration",
+        "type": "object"
+      },
+      "CreateAnalysisConfiguration": {
+        "properties": {
+          "name": { "title": "Name", "type": "string" },
+          "version": { "title": "Version", "type": "string" },
+          "description": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Description"
+          },
+          "tenant_id": {
+            "format": "uuid",
+            "title": "Tenant Id",
+            "type": "string"
+          }
+        },
+        "required": ["name", "version", "tenant_id"],
+        "title": "CreateAnalysisConfiguration",
+        "type": "object"
+      },
+      "UpdateAnalysisConfiguration": {
+        "properties": {
+          "name": { "title": "Name", "type": "string" },
+          "version": { "title": "Version", "type": "string" },
+          "description": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Description"
+          }
+        },
+        "required": ["name", "version"],
+        "title": "UpdateAnalysisConfiguration",
+        "type": "object"
+      },
+      "NodeDefinitionSchema": {
+        "properties": {
+          "name": { "title": "Name", "type": "string" },
+          "group_name": { "title": "Group Name", "type": "string" },
+          "type": { "$ref": "#/components/schemas/Type" },
+          "inputs": {
+            "items": { "$ref": "#/components/schemas/NodeInput" },
+            "title": "Inputs",
+            "type": "array"
+          },
+          "attributes": {
+            "anyOf": [
+              {
+                "discriminator": {
+                  "mapping": {
+                    "prompt": "#/components/schemas/waypointai__modules__graph__node__resolvers__prompt__PromptResolver__Attributes",
+                    "script": "#/components/schemas/waypointai__modules__graph__node__resolvers__script__ScriptResolver__Attributes"
+                  },
+                  "propertyName": "type"
+                },
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/waypointai__modules__graph__node__resolvers__script__ScriptResolver__Attributes"
+                  },
+                  {
+                    "$ref": "#/components/schemas/waypointai__modules__graph__node__resolvers__prompt__PromptResolver__Attributes"
+                  }
+                ]
+              },
+              { "type": "null" }
+            ],
+            "title": "Attributes"
+          },
+          "analysis_configuration_id": {
+            "format": "uuid",
+            "title": "Analysis Configuration Id",
+            "type": "string"
+          },
+          "id": { "format": "uuid", "title": "Id", "type": "string" },
+          "tenant_id": {
+            "format": "uuid",
+            "title": "Tenant Id",
+            "type": "string"
+          },
+          "node_type": {
+            "const": "tenant_node",
+            "default": "tenant_node",
+            "enum": ["tenant_node"],
+            "title": "Node Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "group_name",
+          "type",
+          "inputs",
+          "analysis_configuration_id",
+          "id",
+          "tenant_id"
+        ],
+        "title": "NodeDefinitionSchema",
+        "type": "object"
+      },
+      "NodeDefinitionTemplateSchema": {
+        "properties": {
+          "name": { "title": "Name", "type": "string" },
+          "group_name": { "title": "Group Name", "type": "string" },
+          "type": { "$ref": "#/components/schemas/Type" },
+          "inputs": {
+            "items": { "$ref": "#/components/schemas/NodeInput" },
+            "title": "Inputs",
+            "type": "array"
+          },
+          "attributes": {
+            "anyOf": [
+              {
+                "discriminator": {
+                  "mapping": {
+                    "prompt": "#/components/schemas/waypointai__modules__graph__node__resolvers__prompt__PromptResolver__Attributes",
+                    "script": "#/components/schemas/waypointai__modules__graph__node__resolvers__script__ScriptResolver__Attributes"
+                  },
+                  "propertyName": "type"
+                },
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/waypointai__modules__graph__node__resolvers__script__ScriptResolver__Attributes"
+                  },
+                  {
+                    "$ref": "#/components/schemas/waypointai__modules__graph__node__resolvers__prompt__PromptResolver__Attributes"
+                  }
+                ]
+              },
+              { "type": "null" }
+            ],
+            "title": "Attributes"
+          },
+          "id": { "format": "uuid", "title": "Id", "type": "string" },
+          "node_type": {
+            "const": "node_template",
+            "default": "node_template",
+            "enum": ["node_template"],
+            "title": "Node Type",
+            "type": "string"
+          }
+        },
+        "required": ["name", "group_name", "type", "inputs", "id"],
+        "title": "NodeDefinitionTemplateSchema",
+        "type": "object"
+      },
+      "NodeInput": {
+        "properties": {
+          "id": { "title": "Id", "type": "string" },
+          "definition": { "title": "Definition", "type": "string" },
+          "type": { "title": "Type", "type": "string" },
+          "alias": { "title": "Alias", "type": "string" }
+        },
+        "required": ["id", "definition", "type", "alias"],
+        "title": "NodeInput",
+        "type": "object"
+      },
+      "Type": {
+        "enum": [1, 2, 3, 4, 5, 6],
+        "title": "Type",
+        "type": "integer"
+      },
+      "waypointai__modules__graph__node__resolvers__prompt__PromptResolver__Attributes": {
+        "properties": {
+          "type": {
+            "const": "prompt",
+            "default": "prompt",
+            "enum": ["prompt"],
+            "title": "Type",
+            "type": "string"
+          },
+          "system_prompt": { "title": "System Prompt", "type": "string" },
+          "user_prompt": { "title": "User Prompt", "type": "string" }
+        },
+        "required": ["system_prompt", "user_prompt"],
+        "title": "Attributes",
+        "type": "object"
+      },
+      "waypointai__modules__graph__node__resolvers__script__ScriptResolver__Attributes": {
+        "properties": {
+          "type": {
+            "const": "script",
+            "default": "script",
+            "enum": ["script"],
+            "title": "Type",
+            "type": "string"
+          },
+          "function": { "title": "Function", "type": "string" }
+        },
+        "required": ["function"],
+        "title": "Attributes",
+        "type": "object"
+      },
+      "NodeDefinitionCreationSchema": {
+        "properties": {
+          "name": { "title": "Name", "type": "string" },
+          "group_name": { "title": "Group Name", "type": "string" },
+          "type": { "$ref": "#/components/schemas/Type" },
+          "inputs": {
+            "items": { "$ref": "#/components/schemas/NodeInput" },
+            "title": "Inputs",
+            "type": "array"
+          },
+          "attributes": {
+            "anyOf": [
+              {
+                "discriminator": {
+                  "mapping": {
+                    "prompt": "#/components/schemas/waypointai__modules__graph__node__resolvers__prompt__PromptResolver__Attributes",
+                    "script": "#/components/schemas/waypointai__modules__graph__node__resolvers__script__ScriptResolver__Attributes"
+                  },
+                  "propertyName": "type"
+                },
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/waypointai__modules__graph__node__resolvers__script__ScriptResolver__Attributes"
+                  },
+                  {
+                    "$ref": "#/components/schemas/waypointai__modules__graph__node__resolvers__prompt__PromptResolver__Attributes"
+                  }
+                ]
+              },
+              { "type": "null" }
+            ],
+            "title": "Attributes"
+          },
+          "analysis_configuration_id": {
+            "format": "uuid",
+            "title": "Analysis Configuration Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "group_name",
+          "type",
+          "inputs",
+          "analysis_configuration_id"
+        ],
+        "title": "NodeDefinitionCreationSchema",
+        "type": "object"
+      },
+      "NodeDefinitionTemplateCreationSchema": {
+        "properties": {
+          "name": { "title": "Name", "type": "string" },
+          "group_name": { "title": "Group Name", "type": "string" },
+          "type": { "$ref": "#/components/schemas/Type" },
+          "inputs": {
+            "items": { "$ref": "#/components/schemas/NodeInput" },
+            "title": "Inputs",
+            "type": "array"
+          },
+          "attributes": {
+            "anyOf": [
+              {
+                "discriminator": {
+                  "mapping": {
+                    "prompt": "#/components/schemas/waypointai__modules__graph__node__resolvers__prompt__PromptResolver__Attributes",
+                    "script": "#/components/schemas/waypointai__modules__graph__node__resolvers__script__ScriptResolver__Attributes"
+                  },
+                  "propertyName": "type"
+                },
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/waypointai__modules__graph__node__resolvers__script__ScriptResolver__Attributes"
+                  },
+                  {
+                    "$ref": "#/components/schemas/waypointai__modules__graph__node__resolvers__prompt__PromptResolver__Attributes"
+                  }
+                ]
+              },
+              { "type": "null" }
+            ],
+            "title": "Attributes"
+          }
+        },
+        "required": ["name", "group_name", "type", "inputs"],
+        "title": "NodeDefinitionTemplateCreationSchema",
+        "type": "object"
+      },
+      "ScopeSchema": {
+        "properties": {
+          "id": { "format": "uuid", "title": "Id", "type": "string" },
+          "tenant_id": {
+            "format": "uuid",
+            "title": "Tenant Id",
+            "type": "string"
+          },
+          "external_url": { "title": "External Url", "type": "string" },
+          "title": { "title": "Title", "type": "string" }
+        },
+        "required": ["id", "tenant_id", "external_url", "title"],
+        "title": "ScopeSchema",
+        "type": "object"
+      },
+      "TenantSchema": {
+        "properties": {
+          "id": { "format": "uuid", "title": "Id", "type": "string" },
+          "name": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Name"
+          }
+        },
+        "required": ["id"],
+        "title": "TenantSchema",
+        "type": "object"
+      },
+      "RevisionSchema": {
+        "properties": {
+          "id": { "format": "uuid", "title": "Id", "type": "string" },
+          "input_data": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Input Data"
+          },
+          "output_data": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Output Data"
+          },
+          "attributes": {
+            "anyOf": [
+              {
+                "discriminator": {
+                  "mapping": {
+                    "prompt": "#/components/schemas/waypointai__modules__graph__node__resolvers__prompt__PromptResolver__Attributes",
+                    "script": "#/components/schemas/waypointai__modules__graph__node__resolvers__script__ScriptResolver__Attributes"
+                  },
+                  "propertyName": "type"
+                },
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/waypointai__modules__graph__node__resolvers__script__ScriptResolver__Attributes"
+                  },
+                  {
+                    "$ref": "#/components/schemas/waypointai__modules__graph__node__resolvers__prompt__PromptResolver__Attributes"
+                  }
+                ]
+              },
+              { "type": "null" }
+            ],
+            "title": "Attributes"
+          },
+          "status": { "$ref": "#/components/schemas/Status" },
+          "initiated_at": { "title": "Initiated At", "type": "string" },
+          "finished_at": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Finished At"
+          },
+          "resolver_type": {
+            "$ref": "#/components/schemas/waypointai__modules__graph__models__graph__NodeDefinition__Type"
+          }
+        },
+        "required": [
+          "id",
+          "attributes",
+          "status",
+          "initiated_at",
+          "resolver_type"
+        ],
+        "title": "RevisionSchema",
+        "type": "object"
+      },
+      "Status": { "enum": [1, 2, 3, 4], "title": "Status", "type": "integer" },
+      "RevisionDetailSchema": {
+        "properties": {
+          "id": { "format": "uuid", "title": "Id", "type": "string" },
+          "status": { "$ref": "#/components/schemas/Status" },
+          "resolver_type": { "$ref": "#/components/schemas/Type" },
+          "initiated_at": { "title": "Initiated At", "type": "string" },
+          "finished_at": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Finished At"
+          },
+          "input_data": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Input Data"
+          },
+          "output_data": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Output Data"
+          },
+          "attributes": {
+            "anyOf": [
+              {
+                "discriminator": {
+                  "mapping": {
+                    "prompt": "#/components/schemas/waypointai__modules__graph__node__resolvers__prompt__PromptResolver__Attributes",
+                    "script": "#/components/schemas/waypointai__modules__graph__node__resolvers__script__ScriptResolver__Attributes"
+                  },
+                  "propertyName": "type"
+                },
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/waypointai__modules__graph__node__resolvers__script__ScriptResolver__Attributes"
+                  },
+                  {
+                    "$ref": "#/components/schemas/waypointai__modules__graph__node__resolvers__prompt__PromptResolver__Attributes"
+                  }
+                ]
+              },
+              { "type": "null" }
+            ],
+            "title": "Attributes"
+          }
+        },
+        "required": ["id", "status", "resolver_type", "initiated_at"],
+        "title": "RevisionDetailSchema",
+        "type": "object"
+      },
+      "NodeSchema": {
+        "properties": {
+          "id": { "format": "uuid", "title": "Id", "type": "string" },
+          "name": { "title": "Name", "type": "string" },
+          "group_name": { "title": "Group Name", "type": "string" },
+          "type": {
+            "$ref": "#/components/schemas/waypointai__modules__graph__models__graph__NodeDefinition__Type"
+          },
+          "revision": { "$ref": "#/components/schemas/RevisionSchema" },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "detail": { "$ref": "#/components/schemas/Detail" }
+        },
+        "required": [
+          "id",
+          "name",
+          "group_name",
+          "type",
+          "revision",
+          "created_at",
+          "detail"
+        ],
+        "title": "NodeSchema",
+        "type": "object"
+      },
+      "PerformResponseSchema": {
+        "properties": { "result": { "title": "Result", "type": "string" } },
+        "required": ["result"],
+        "title": "PerformResponseSchema",
+        "type": "object"
+      },
+      "PerformRequestSchema": {
+        "properties": {
+          "resolver_type": { "$ref": "#/components/schemas/Type" },
+          "input_data": { "title": "Input Data", "type": "string" },
+          "attributes": {
+            "anyOf": [
+              {
+                "discriminator": {
+                  "mapping": {
+                    "prompt": "#/components/schemas/waypointai__modules__graph__node__resolvers__prompt__PromptResolver__Attributes",
+                    "script": "#/components/schemas/waypointai__modules__graph__node__resolvers__script__ScriptResolver__Attributes"
+                  },
+                  "propertyName": "type"
+                },
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/waypointai__modules__graph__node__resolvers__script__ScriptResolver__Attributes"
+                  },
+                  {
+                    "$ref": "#/components/schemas/waypointai__modules__graph__node__resolvers__prompt__PromptResolver__Attributes"
+                  }
+                ]
+              },
+              { "type": "null" }
+            ],
+            "title": "Attributes"
+          }
+        },
+        "required": ["resolver_type", "input_data"],
+        "title": "PerformRequestSchema",
+        "type": "object"
+      },
+      "Detail": {
+        "properties": {
+          "external_id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "External Id"
+          },
+          "attributes": {
+            "anyOf": [
+              {
+                "discriminator": {
+                  "mapping": {
+                    "prompt": "#/components/schemas/waypointai__modules__graph__node__resolvers__prompt__PromptResolver__Attributes",
+                    "script": "#/components/schemas/waypointai__modules__graph__node__resolvers__script__ScriptResolver__Attributes"
+                  },
+                  "propertyName": "type"
+                },
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/waypointai__modules__graph__node__resolvers__script__ScriptResolver__Attributes"
+                  },
+                  {
+                    "$ref": "#/components/schemas/waypointai__modules__graph__node__resolvers__prompt__PromptResolver__Attributes"
+                  }
+                ]
+              },
+              { "type": "null" }
+            ],
+            "title": "Attributes"
+          },
+          "data": { "title": "Data", "type": "object" },
+          "output_hash": { "title": "Output Hash", "type": "string" },
+          "input_hashes": { "title": "Input Hashes", "type": "string" },
+          "inputs": { "title": "Inputs", "type": "object" }
+        },
+        "required": [
+          "attributes",
+          "data",
+          "output_hash",
+          "input_hashes",
+          "inputs"
+        ],
+        "title": "Detail",
+        "type": "object"
+      },
+      "EdgeSchema": {
+        "properties": {
+          "id": { "format": "uuid", "title": "Id", "type": "string" },
+          "type": {
+            "$ref": "#/components/schemas/waypointai__modules__graph__models__graph__Edge__Type"
+          },
+          "source": { "format": "uuid", "title": "Source", "type": "string" },
+          "target": { "format": "uuid", "title": "Target", "type": "string" }
+        },
+        "required": ["id", "type", "source", "target"],
+        "title": "EdgeSchema",
+        "type": "object"
+      },
+      "SnapshotResponseSchema": {
+        "properties": {
+          "edges": {
+            "items": { "$ref": "#/components/schemas/EdgeSchema" },
+            "title": "Edges",
+            "type": "array"
+          },
+          "nodes": {
+            "items": { "$ref": "#/components/schemas/NodeSchema" },
+            "title": "Nodes",
+            "type": "array"
+          }
+        },
+        "required": ["edges", "nodes"],
+        "title": "SnapshotResponseSchema",
+        "type": "object"
+      },
+      "waypointai__modules__graph__models__graph__Edge__Type": {
+        "enum": [1, 2, 3],
+        "title": "Type",
+        "type": "integer"
+      },
+      "waypointai__modules__graph__models__graph__NodeDefinition__Type": {
+        "enum": [1, 2, 3, 4, 5, 6],
+        "title": "Type",
+        "type": "integer"
+      }
+    },
+    "securitySchemes": {
+      "HttpBasicAuth": { "type": "http", "scheme": "basic" }
+    }
+  },
+  "servers": []
+}
